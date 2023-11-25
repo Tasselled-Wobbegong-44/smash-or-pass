@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Slider from './Slider'
+import './App.css'
 
-function App() {
+const App = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error));
+  }, []);
+
+
+    const sliders = [
+      ['strength', 100], 
+      ['speed', 100]
+      // more sliders can be added here for rendering
+    ]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h1>Choose your character</h1>
       </header>
+    
+    
+    <body>
+        <Slider sliders = {sliders} />
+    </body>
     </div>
   );
 }
 
-export default App;
+
+export default App; 
