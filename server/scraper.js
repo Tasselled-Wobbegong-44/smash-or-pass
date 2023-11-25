@@ -22,11 +22,6 @@ async function scrape(id) {
   //testing table-parser
   cheerioTableParser($);
   const parseTable = $(id).parsetable(true, true, true);
-  const parseWeight = $('#weighttable').parsetable(true, true, true);
-  const parseJumpHeight = $('#jumpheighttable').parsetable(true, true, true);
-  const parseDashRun = $('#dashandruntable').parsetable(true, true, true);
-  const parseGrabRange = $('#grabstable').parsetable(true, true, true);
-  // console.log(parseWeight);
 
   return parseTable;
 }
@@ -91,7 +86,9 @@ const parseWeight = scrape('#weighttable').then((data) => {
   return result;
 });
 
-// const parseDashRun = scarpe('#dashandruntable')
+const parseDashRun = scrape('#dashandruntable').then((data) => {
+  const result = characterExtractor(data);
+});
 
 // const parseHeight = scrape('#jumpheighttable').then((data) => {
 //   const result = characterExtractor(data);

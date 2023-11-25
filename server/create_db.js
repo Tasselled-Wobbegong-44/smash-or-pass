@@ -11,7 +11,13 @@ client.connect();
 console.log('Client connection successful');
 
 // create weights table
-const createWeightTableScript = `
+const createTableScript = `
+  CREATE TABLE IF NOT EXISTS weights (
+    _id serial PRIMARY KEY,
+    name varchar,
+    weight integer
+  );
+
   CREATE TABLE IF NOT EXISTS weights (
     _id serial PRIMARY KEY,
     name varchar,
@@ -19,7 +25,7 @@ const createWeightTableScript = `
   );
   `;
 
-client.query(createWeightTableScript, (err, result) => {
+client.query(createTableScript, (err, result) => {
   if (err) {
     console.error('Error creating weight table:', err);
   } else {
@@ -35,29 +41,21 @@ let insertWeightTableScript = `
 weights.then((results) => {
   results = JSON.parse(results);
   for (let i = 0; i < Object.keys(results).length; i++) {
-    insertWeightTableScript += `(${i}, ${Object.keys(results)[i]}, ${
+    insertWeightTableScript += `(${i}, '${Object.keys(results)[i]}', ${
       Object.values(results)[i]
     }),`;
   }
-});
 
-// remove trailing comma
-insertWeightTableScript = insertWeightTableScript.slice(0, -1);
+  // remove trailing comma
+  insertWeightTableScript = insertWeightTableScript.slice(0, -1);
 
-console.log('full script: ', insertWeightTableScript);
+  console.log('full script: ', insertWeightTableScript);
 
-client.query(createWeightTableScript, (err, result) => {
-  if (err) {
-    console.error('Error creating weight table:', err);
-  } else {
-    console.log('Table created successfully:', result);
-  }
-});
-
-client.query(insertWeightTableScript, (err, result) => {
-  if (err) {
-    console.error('Error inserting to weights table:', err);
-  } else {
-    console.log('Table populated successfully:', result);
-  }
+  client.query(insertWeightTableScript, (err, result) => {
+    if (err) {
+      console.error('Error inserting to weights table:', err);
+    } else {
+      console.log('Table populated successfully:', result);
+    }
+  });
 });
