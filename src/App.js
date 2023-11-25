@@ -6,10 +6,10 @@ const App = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('https://api.example.com/data')
-      .then(response => response.json())
-      .then(json => setData(json))
-      .catch(error => console.error(error));
+    fetch("https://api.example.com/data")
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error));
   }, []);
 
 
@@ -27,6 +27,7 @@ const App = () => {
     
     
     <body>
+    <CharCard />
         <Slider sliders = {sliders} />
     </body>
     </div>
@@ -34,4 +35,4 @@ const App = () => {
 }
 
 
-export default App; 
+export default App;
