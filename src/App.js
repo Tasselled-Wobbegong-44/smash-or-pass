@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Slider from './Slider'
+import './App.css'
 
-function App() {
+const App = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -12,8 +14,12 @@ function App() {
 
   return (
     <div>
-      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}
+        <Slider />
     </div>
+
+  
   );
 }
-//create 
+
+
+export default App; 
