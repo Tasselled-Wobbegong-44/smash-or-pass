@@ -1,26 +1,39 @@
 import React, { useState } from 'react';
+import './App.css';
 
-const Slider = () => {
-  const [sliderValue, setSliderValue] = useState(0);
+const Slider = ({ sliders }) => {
+    const [sliderValues, setSliderValues] = useState(
+        sliders.reduce((acc, [name, maxValue]) => {
+          acc[name] = 0;
+          return acc;
+        }, {})
+      );
+    
+      const handleSliderChange = (name) => (event) => {
+        setSliderValues({
+          ...sliderValues,
+          [name]: event.target.value,
+        });
+      };
 
-  const handleSliderChange = (event) => {
-    setSliderValue(event.target.value);
-  };
-
-  return (
-    <div className="slider-container">
-      <label htmlFor="rangeSlider">Speed Slider:</label>
-      <input
-        type="range"
-        id="speedSlider"
-        min="0"
-        max="500"
-        value={sliderValue}
-        onChange={handleSliderChange}
-      />
-      <p id="sliderValue">Character Speed: {sliderValue}</p>
-    </div>
-  );
+      return (
+        <div className = "slider">
+          {sliders.map(([name, maxValue]) => (
+            <div key={name} className="slider-container">
+              <label htmlFor={`${name}Slider`}>{name}:</label>
+              <input
+                type="range"
+                id={`${name}Slider`}
+                min="0"
+                max={maxValue}
+                value={sliderValues[name]}
+                onChange={handleSliderChange(name)}
+              />
+              <sliderText>{sliderValues[name]}</sliderText>
+            </div>
+          ))}
+        </div>
+      );
 };
 
 export default Slider;

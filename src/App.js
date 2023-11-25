@@ -12,12 +12,24 @@ const App = () => {
       .catch(error => console.error(error));
   }, []);
 
+
+    const sliders = [
+      ['strength', 100], 
+      ['speed', 100]
+      // more sliders can be added here for rendering
+    ]
+
   return (
     <div>
-        <Slider />
+      <header>
+        <h1>Choose your character</h1>
+      </header>
+    
+    
+    <body>
+        <Slider sliders = {sliders} />
+    </body>
     </div>
-
-  
   );
 }
 
