@@ -28,18 +28,23 @@ client.query(createWeightTableScript, (err, result) => {
 });
 
 let insertWeightTableScript = `
-  INSERT INTO TABLE weights
+  INSERT INTO weights (_id, name, weight) 
+  VALUES
 `;
 
 weights.then((results) => {
   results = JSON.parse(results);
   for (let i = 0; i < Object.keys(results).length; i++) {
-    insertWeightTableScript += `\n VALUES (${i}, ${Object.keys(results)[i]}, ${
+    insertWeightTableScript += `(${i}, ${Object.keys(results)[i]}, ${
       Object.values(results)[i]
-    })`;
+    }),`;
   }
 });
-console.log(insertWeightTableScript);
+
+// remove trailing comma
+insertWeightTableScript = insertWeightTableScript.slice(0, -1);
+
+console.log('full script: ', insertWeightTableScript);
 
 client.query(createWeightTableScript, (err, result) => {
   if (err) {
