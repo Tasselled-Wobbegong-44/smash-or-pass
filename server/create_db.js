@@ -1,7 +1,6 @@
 const { Client } = require('pg');
 require('dotenv').config();
 const stats = require('./scraper.js');
-console.log('weight', stats);
 
 const client = new Client({
   connectionString: process.env.PG_URI,
@@ -31,7 +30,7 @@ const createTableScript = `
     initial_dash decimal(4, 3),
     run_speed decimal(4,3),
     dash_frames integer,
-    pivot_dash_frames
+    pivot_dash_frames integer
   );
 
   CREATE TABLE IF NOT EXISTS jump_height (
@@ -45,7 +44,7 @@ const createTableScript = `
   CREATE TABLE IF NOT EXISTS grab_range (
     _id serial PRIMARY KEY,
     name varchar,
-    grab_range
+    grab_range integer
   );
   `;
 
@@ -63,17 +62,17 @@ client.query(createTableScript, (err, result) => {
 
 // ---- WEIGHT
 let insertWeightTableScript = `
-  INSERT INTO weights (_id, name, weight) 
+  INSERT INTO weights (_id, name, weight)
   VALUES
 `;
 
 stats.parseWeight.then((results) => {
-  results = JSON.parse(results);
-  for (let i = 0; i < Object.keys(results).length; i++) {
-    insertWeightTableScript += `(${i}, '${Object.keys(results)[i]}', ${
-      Object.values(results)[i]
-    }),`;
+  console.log('nested weights: ', results);
+  for (let j = 0; j < results[0].length; j++) {
+    insertWeightTableScript += `(${j}, '${results[0][j]}', ${results[1][j]}),`;
   }
+
+  console.log('insert weight script: ', insertWeightTableScript);
 
   insertWeightTableScript = insertWeightTableScript.slice(0, -1); // remove trailing comma
 
@@ -86,18 +85,15 @@ stats.parseWeight.then((results) => {
   });
 });
 
-// ---- GROUND SPEED
+// // ---- GROUND SPEED
 let insertGroundSpeedTableScript = `
-  INSERT INTO weights (_id, name, weight) 
+  INSERT INTO weights (_id, name, initial_dash, run_speed, dash_frames, pivot_dash_frames)
   VALUES
 `;
 
 stats.parseWeight.then((results) => {
-  results = JSON.parse(results);
-  for (let i = 0; i < Object.keys(results).length; i++) {
-    insertGroundSpeedTableScript += `(${i}, '${Object.keys(results)[i]}', ${
-      Object.values(results)[i]
-    }),`;
+  for (let i = 0; i < results.length; i++) {
+    insertGroundSpeedTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}), ${results[2][i]}, ${results[3][i]}, ${results[4][i]}, `;
   }
 
   insertGroundSpeedTableScript = insertGroundSpeedTableScript.slice(0, -1); // remove trailing comma
@@ -111,18 +107,15 @@ stats.parseWeight.then((results) => {
   });
 });
 
-// ---- JUMP HEIGHT
+// // ---- JUMP HEIGHT
 let insertJumpHeightTableScript = `
-  INSERT INTO jump_height (_id, name, full_hop, short_hop, air_jump) 
+  INSERT INTO jump_height (_id, name, full_hop, short_hop, air_jump)
   VALUES
 `;
 
 stats.parseJumpHeight.then((results) => {
-  results = JSON.parse(results);
-  for (let i = 0; i < Object.keys(results).length; i++) {
-    insertWeightTableScript += `(${i}, '${Object.keys(results)[i]}', ${
-      Object.values(results)[i]
-    }),`;
+  for (let i = 0; i < results.length; i++) {
+    insertWeightTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}), ${results[2][i]}, ${results[3][i]},`;
   }
 
   insertJumpHeightTableScript = insertJumpHeightTableScript.slice(0, -1); // remove trailing comma
@@ -138,23 +131,20 @@ stats.parseJumpHeight.then((results) => {
   });
 });
 
-// ---- GRAB RANGE
+// // ---- GRAB RANGE
 let insertGrabTableScript = `
-  INSERT INTO grab_range (_id, name, grab_range) 
+  INSERT INTO grab_range (_id, name, grab_range)
   VALUES
 `;
 
 stats.parseGrab.then((results) => {
-  results = JSON.parse(results);
-  for (let i = 0; i < Object.keys(results).length; i++) {
-    insertGrabTableScript += `(${i}, '${Object.keys(results)[i]}', ${
-      Object.values(results)[i]
-    }),`;
+  for (let i = 0; i < results.length; i++) {
+    insertGrabTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}),`;
   }
 
   insertGrabTableScript = insertGrabTableScript.slice(0, -1); // remove trailing comma
 
-  console.log('full script: ', insertGrabTableScript);
+  //   console.log('full script: ', insertGrabTableScript);
 
   client.query(insertGrabTableScript, (err, result) => {
     if (err) {
