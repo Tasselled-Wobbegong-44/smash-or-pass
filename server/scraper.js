@@ -64,6 +64,7 @@ const characterExtractor = (data) => {
   let result = [];
   //populate buckets array with empty arrays for the length of our input array
   data.forEach((element) => {
+    //push empty array into results
     result.push([]);
   });
   //iterate through data array
