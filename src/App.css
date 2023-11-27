@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
 .App {
   text-align: center;
 }
@@ -11,6 +13,15 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+body {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-image: url(https://ssb.wiki.gallery/images/thumb/3/3b/SSBU-Temple.png/1200px-SSBU-Temple.png);
 }
 
 .App-header {
@@ -37,14 +48,82 @@
   }
 }
 
+.charCard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  max-width: display;
+  margin-bottom: 10px;
+  margin-top: 6%;
+  padding-left: 300px;
+  padding-right: 300px;
+}
 
+.CharacterImage {
+  max-width: 80px;
+}
 
+.intro {
+  text-align: center;
+  border: none;
+  position: relative;
+  top: 60px;
+  font-size: 1.5em;
+  font-family: Bangers;
+}
 
+/* Slider design */
+
+.slider-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8%;
+}
 
 .slider {
   display: flex;
-	flex-direction: column;
-  font-size: .8em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
   font-weight: bolder;
+  padding: 20px;
+}
 
+.sliderbox {
+  background-color: rgba(255, 255, 255, 0.34);
+  position: relative;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  max-width: 350px;
+}
+
+/* Drawer design */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Start off-screen */
+  height: 100%;
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.drawer-content {
+  padding: 20px;
 }
