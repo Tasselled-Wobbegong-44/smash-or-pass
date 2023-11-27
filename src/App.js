@@ -22,7 +22,7 @@ const App = () => {
   // toggles drawer on
 
   const handleCharacterClick = (character) => {
-    setSelectedCharacter(character.name);
+    setSelectedCharacter(character);
     toggleDrawer();
   };
   // starts the function that triggers the drawer
