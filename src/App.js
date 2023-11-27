@@ -8,37 +8,43 @@ import characters from "./Characters";
 const App = () => {
   // hooks for characteristics
   const [charId, setCharId] = useState(0);
-  const [strengthValue, setStrengthValue] = useState(0);
-  const [cutenessValue, setCutenessValue] = useState(0);
-  const [trollabilityValue, setTrollabilityValue] = useState(0);
+  const [weightValue, setWeightValue] = useState(0);
   const [speedValue, setSpeedValue] = useState(0);
   const [jumpHeightValue, setJumpHeightValue] = useState(0);
+  const [grabRangeValue, setGrabRangeValue] = useState(0);
+  const [cutenessValue, setCutenessValue] = useState(0);
+  const [trollabilityValue, setTrollabilityValue] = useState(0);
 
   // state handlers for characteristics
-  const handleStrengthChange = (value) => {
-    setStrengthValue(value);
+  const handleWeightChange = (value) => {
+    setWeightValue(value);
   };
-
-  const handleTrollabilityChange = (value) => {
-    setTrollabilityValue(value);
-  };
-
+  
   const handleSpeedChange = (value) => {
     setSpeedValue(value);
   };
-
+  
   const handleJumpHeightChange = (value) => {
     setJumpHeightValue(value);
   };
-
+  
+  const handleGrabRangeChange = (value) => {
+    setGrabRangeValue(value);
+  };
+  
   const handleCutenessChange = (value) => {
     setCutenessValue(value);
+  };
+  
+  const handleTrollabilityChange = (value) => {
+    setTrollabilityValue(value);
   };
 
   // character filtering
   const filteredCharacters = characters.filter(
     (character) =>
-      character.weight >= strengthValue &&
+      character.grab_range >= grabRangeValue&&
+      character.weight >= weightValue &&
       character.cuteness >= cutenessValue &&
       character.speed >= speedValue &&
       character.jump_height >= jumpHeightValue &&
@@ -97,8 +103,8 @@ const App = () => {
             <Slider
               // label="Weight"
               max={135}
-              value={strengthValue}
-              onChange={handleStrengthChange}
+              value={weightValue}
+              onChange={handleWeightChange}
               step={1}
               min={60}
             />
@@ -110,6 +116,14 @@ const App = () => {
               onChange={handleJumpHeightChange}
               step={1}
               min={18}
+            />
+            <div>Grab Range</div>
+            <Slider
+              max={42}
+              value={grabRangeValue}
+              onChange={handleGrabRangeChange}
+              step={1}
+              min={11}
             />
             <div>Cuteness</div>
             <Slider
