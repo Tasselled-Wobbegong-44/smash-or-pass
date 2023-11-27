@@ -84,7 +84,7 @@ const characters = [
     cuteness: 10,
     jump_height: 25.37,
     trollability: 3,
-    backgroud: "Kirby made his debut in 1992 in Kirby's Dream Land for the Game Boy. The goal of his journey was to recover stolen food from King Dedede."
+    background: "Kirby made his debut in 1992 in Kirby's Dream Land for the Game Boy. The goal of his journey was to recover stolen food from King Dedede."
   },
   {
     id: 8,

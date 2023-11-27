@@ -111,21 +111,30 @@ body {
   right: -300px; /* Start off-screen */
   height: 100%;
   width: 300px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(237, 236, 236, 0.1);
   transition: right 0.3s ease-in-out;
 }
 
 .drawer.open {
   /* display: block; */
+  background-color: rgba(0, 0, 0, 0.5);
   right: 0;
 }
 
 .drawer-header {
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.drawer-header button {
+  font-size: 18px;
 }
 
 .drawer-content {
   padding: 20px;
+  color: white;
+  /* -webkit-text-stroke: 0.5px black; */
+  /* background-color: rgb(164, 205, 240); */
+  /* backdrop-filter: 10px; */
 }
