@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
+import characters from "./Characters";
 
 const Drawer = ({ isOpen, onClose, data }) => {
-  //   const name = data.name;
   return (
     <div className={`drawer ${isOpen ? "open" : ""}`}>
       <div className="drawer-header">
@@ -11,8 +11,8 @@ const Drawer = ({ isOpen, onClose, data }) => {
         </button>
       </div>
       <div className="drawer-content">
-        {/* <h1>{name}</h1> */}
         <h4>Information goes here</h4>
+        {/* { <h2>{data.name}</h2> } */}
         <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
     </div>

@@ -11,7 +11,9 @@ const App = () => {
   const [data, setData] = useState(null);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(
+    characters.find((character) => character.name)
+  );
   // checks drawer state for revealing character drawers
 
   const toggleDrawer = () => {
@@ -20,26 +22,33 @@ const App = () => {
   // toggles drawer on
 
   const handleCharacterClick = (character) => {
-    setSelectedCharacter(character);
+    setSelectedCharacter(character.name);
     toggleDrawer();
   };
   // starts the function that triggers the drawer
 
-  useEffect(() => {
-    fetch("https://api.example.com/data")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));
-  }, []);
+  const [filterValues, setFilterValues] = useState({
+    // SPEED: 255,
+    // JUMP_HEIGHT: 255,
+    // WEIGHT: 10,
+    CUTENESS: 10,
+    // STRENGTH: 255,
+    // TROLLABILITY: 10,
+  });
 
-  const sliders = [
-    ["SPEED", 100],
-    ["WEIGHT", 100],
-    ["CUTENESS", 100],
-    ["STRENGTH", 100],
-    ["TROLLABILITY", 100],
-    // more sliders can be added here for rendering
-  ];
+  // callback function that is passed in to handle changes in the slider
+  const handleSliderChange = (name) => (value) => {
+    setFilterValues({
+      ...filterValues,
+      [name]: value,
+    });
+  };
+
+  const filteredCharacters = characters.filter((character) => {
+    return Object.entries(filterValues).every(
+      ([attribute, value]) => character[attribute.toLowerCase()] <= value
+    );
+  });
 
   return (
     <div>
@@ -52,14 +61,17 @@ const App = () => {
           </h3>
         </div>
 
-    <section class = "slider-section">
-        <div class="sliderbox">
-          <Slider sliders={sliders} />
-        </div>
-    </section>
+        <section class="slider-section">
+          <div class="sliderbox">
+            <Slider
+              sliders={Object.entries(filterValues)}
+              onChange={handleSliderChange}
+            />
+          </div>
+        </section>
 
         <CharCard
-          characters={characters}
+          characters={filteredCharacters}
           onCharacterClick={handleCharacterClick}
         />
         <Drawer

@@ -105,6 +105,7 @@ body {
 
 /* Drawer design */
 .drawer {
+  /* display: none; */
   position: fixed;
   top: 0;
   right: -300px; /* Start off-screen */
@@ -116,6 +117,7 @@ body {
 }
 
 .drawer.open {
+  /* display: block; */
   right: 0;
 }
 
