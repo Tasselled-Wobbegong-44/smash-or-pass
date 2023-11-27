@@ -1,17 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Slider from "./Slider";
 import "./App.css";
 import CharCard from "./SmashCharCards";
 import Drawer from "./Drawer";
-
 import characters from "./Characters";
-// imported list of characters from the source file
 
 const App = () => {
-  const [data, setData] = useState(null);
+  // hooks for characteristics
+  const [charId, setCharId] = useState(0);
+  const [strengthValue, setStrengthValue] = useState(0);
+  const [cutenessValue, setCutenessValue] = useState(0);
+  const [trollabilityValue, setTrollabilityValue] = useState(0);
+  const [speedValue, setSpeedValue] = useState(0);
+  const [jumpHeightValue, setJumpHeightValue] = useState(0);
+
+  // state handlers for characteristics
+  const handleStrengthChange = (value) => {
+    setStrengthValue(value);
+  };
+
+  const handleTrollabilityChange = (value) => {
+    setTrollabilityValue(value);
+  };
+
+  const handleSpeedChange = (value) => {
+    setSpeedValue(value);
+  };
+
+  const handleJumpHeightChange = (value) => {
+    setJumpHeightValue(value);
+  };
+
+  const handleCutenessChange = (value) => {
+    setCutenessValue(value);
+  };
+
+  // character filtering
+  const filteredCharacters = characters.filter(
+    (character) =>
+      character.weight >= strengthValue &&
+      character.cuteness >= cutenessValue &&
+      character.speed >= speedValue &&
+      character.jump_height >= jumpHeightValue &&
+      character.trollability >= trollabilityValue
+  );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(
+    characters.find((character) => character.name)
+  );
   // checks drawer state for revealing character drawers
 
   const toggleDrawer = () => {
@@ -20,26 +57,19 @@ const App = () => {
   // toggles drawer on
 
   const handleCharacterClick = (character) => {
+    console.log("charId", charId);
+    console.log("character", character.id);
+    if (charId === character.id) {
+      setIsDrawerOpen(isDrawerOpen)
+      toggleDrawer();
+    }
+
     setSelectedCharacter(character);
-    toggleDrawer();
+    setCharId(character.id);
+    if (!isDrawerOpen) toggleDrawer();
+    // if (open) toggleDrawer();
   };
   // starts the function that triggers the drawer
-
-  useEffect(() => {
-    fetch("https://api.example.com/data")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));
-  }, []);
-
-  const sliders = [
-    ["SPEED", 100],
-    ["WEIGHT", 100],
-    ["CUTENESS", 100],
-    ["STRENGTH", 100],
-    ["TROLLABILITY", 100],
-    // more sliders can be added here for rendering
-  ];
 
   return (
     <div>
@@ -47,21 +77,68 @@ const App = () => {
         <div class="intro">
           <h1>Choose your character</h1>
           <h3>
-            "Use the sliders below to pick which attributes you want and see
-            which characters have those attributes!"
+            Use the sliders below to pick which attributes you want and see
+            which characters have those attributes!
           </h3>
         </div>
 
-    <section class = "slider-section">
-        <div class="sliderbox">
-          <Slider sliders={sliders} />
-        </div>
-    </section>
+        <section class="section slider">
+          <div class="sliderbox">
+            <div>Speed</div>
+            <Slider
+              max={2.5}
+              // label="Speed"
+              value={speedValue}
+              onChange={handleSpeedChange}
+              step={0.1}
+              min={1.1}
+            />
+            <div>Weight</div>
+            <Slider
+              // label="Weight"
+              max={135}
+              value={strengthValue}
+              onChange={handleStrengthChange}
+              step={1}
+              min={60}
+            />
+            <div>Jump Height</div>
+            <Slider
+              max={50}
+              // label="Jump Height"
+              value={jumpHeightValue}
+              onChange={handleJumpHeightChange}
+              step={1}
+              min={18}
+            />
+            <div>Cuteness</div>
+            <Slider
+              max={10}
+              // label="Cuteness"
+              value={cutenessValue}
+              onChange={handleCutenessChange}
+              step={1}
+              min={0}
+            />
+            <div>Trollability</div>
+            <Slider
+              max={10}
+              // label="Trollability"
+              value={trollabilityValue}
+              onChange={handleTrollabilityChange}
+              step={1}
+              min={0}
+            />
+          </div>
+        </section>
 
-        <CharCard
-          characters={characters}
-          onCharacterClick={handleCharacterClick}
-        />
+        <section class="section">
+          <CharCard
+            characters={filteredCharacters}
+            onCharacterClick={handleCharacterClick}
+          />
+        </section>
+
         <Drawer
           isOpen={isDrawerOpen}
           onClose={toggleDrawer}
@@ -71,6 +148,5 @@ const App = () => {
     </div>
   );
 };
-//Use the sliders below to pick which attributes you want and see which characters have those attributes!
 
 export default App;

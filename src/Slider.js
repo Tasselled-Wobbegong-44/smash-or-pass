@@ -1,39 +1,24 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-const Slider = ({ sliders }) => {
-    const [sliderValues, setSliderValues] = useState(
-        sliders.reduce((acc, [name, maxValue]) => {
-          acc[name] = 0;
-          return acc;
-        }, {})
-      );
-    
-      const handleSliderChange = (name) => (event) => {
-        setSliderValues({
-          ...sliderValues,
-          [name]: event.target.value,
-        });
-      };
-
-      return (
-        <div className = "slider">
-          {sliders.map(([name, maxValue]) => (
-            <div key={name} className="slider-container">
-              <label htmlFor={`${name}Slider`}>{name}:</label>
-              <input
-                type="range"
-                id={`${name}Slider`}
-                min="0"
-                max={maxValue}
-                value={sliderValues[name]}
-                onChange={handleSliderChange(name)}
-              />
-              <sliderText>{sliderValues[name]}</sliderText>
-            </div>
-          ))}
-        </div>
-      );
+const Slider = ({ label, value, onChange, max, step, min }) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <input
+        type="range"
+        min={min}
+        step={step}
+        // min slider value pulled from parent element for specific characteristic
+        max={max}
+        // max slider value pulled from parent element for specific characteristic
+        value={value}
+        // slider value pulled from parent element for specific characteristic
+        onChange={(e) => onChange(Number(e.target.value))}
+      />
+      <span>{value}</span>
+    </div>
+  );
 };
 
 export default Slider;

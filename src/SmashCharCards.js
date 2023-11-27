@@ -8,7 +8,7 @@ const CharCard = ({ characters, onCharacterClick }) => {
       {characters.map((character) => (
         <button key={character.id} onClick={() => onCharacterClick(character)}>
           <img
-            class="CharacterImage"
+            className="CharacterImage"
             src={character.imageUrl}
             alt={character.name}
           />
