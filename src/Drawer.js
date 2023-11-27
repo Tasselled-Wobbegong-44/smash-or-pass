@@ -18,7 +18,7 @@ const Drawer = ({ isOpen, onClose, data }) => {
         </div>
         {<h4>{data.background}</h4>}
         {<h3>Speed: {data.speed} 🐇 </h3>}
-        {<h3>Strength: {data.weight} 🏋️</h3>}
+        {<h3>Weight: {data.weight} 🏋️</h3>}
         {<h3>Jump Height: {data.jump_height} ☄️</h3>}
         {<h3>Cuteness: {data.cuteness} / 10 😌</h3>}
         {<h3>Trollability: {data.trollability} / 10 😈 </h3>}
