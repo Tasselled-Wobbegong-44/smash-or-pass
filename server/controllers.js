@@ -4,7 +4,7 @@ const db = require('/server.js');
 const smashController = {};
 
 //getCharacters controller
-smashController.getCharacters = async (req, res, next) => {
+smashController.getUser = async (req, res, next) => {
   //something is coming in the request query
   //set up try/catch
   try {
