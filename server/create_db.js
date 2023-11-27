@@ -62,17 +62,17 @@ client.query(createTableScript, (err, result) => {
 
 // ---- WEIGHT
 let insertWeightTableScript = `
-  INSERT INTO weights (_id, name, weight)
+  INSERT INTO weights (name, weight)
   VALUES
 `;
 
 stats.parseWeight.then((results) => {
-  console.log('nested weights: ', results);
+  // console.log('nested weights: ', results);
   for (let j = 0; j < results[0].length; j++) {
-    insertWeightTableScript += `(${j}, '${results[0][j]}', ${results[1][j]}),`;
+    insertWeightTableScript += `('${results[0][j]}', ${results[1][j]}),`;
   }
 
-  console.log('insert weight script: ', insertWeightTableScript);
+  // console.log('insert weight script: ', insertWeightTableScript);
 
   insertWeightTableScript = insertWeightTableScript.slice(0, -1); // remove trailing comma
 
@@ -87,13 +87,13 @@ stats.parseWeight.then((results) => {
 
 // // ---- GROUND SPEED
 let insertGroundSpeedTableScript = `
-  INSERT INTO weights (_id, name, initial_dash, run_speed, dash_frames, pivot_dash_frames)
+  INSERT INTO ground_speed (name, initial_dash, run_speed, dash_frames, pivot_dash_frames)
   VALUES
 `;
 
-stats.parseWeight.then((results) => {
+stats.parseGroundSpeed.then((results) => {
   for (let i = 0; i < results.length; i++) {
-    insertGroundSpeedTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}), ${results[2][i]}, ${results[3][i]}, ${results[4][i]}, `;
+    insertGroundSpeedTableScript += `('${results[0][i]}', ${results[1][i]}), ${results[2][i]}, ${results[3][i]}, ${results[4][i]}, `;
   }
 
   insertGroundSpeedTableScript = insertGroundSpeedTableScript.slice(0, -1); // remove trailing comma
@@ -109,13 +109,13 @@ stats.parseWeight.then((results) => {
 
 // // ---- JUMP HEIGHT
 let insertJumpHeightTableScript = `
-  INSERT INTO jump_height (_id, name, full_hop, short_hop, air_jump)
+  INSERT INTO jump_height (name, full_hop, short_hop, air_jump)
   VALUES
 `;
 
 stats.parseJumpHeight.then((results) => {
   for (let i = 0; i < results.length; i++) {
-    insertWeightTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}), ${results[2][i]}, ${results[3][i]},`;
+    insertJumpHeightTableScript += `('${results[0][i]}', ${results[1][i]}, ${results[2][i]}, ${results[3][i]}),`;
   }
 
   insertJumpHeightTableScript = insertJumpHeightTableScript.slice(0, -1); // remove trailing comma
@@ -133,13 +133,13 @@ stats.parseJumpHeight.then((results) => {
 
 // // ---- GRAB RANGE
 let insertGrabTableScript = `
-  INSERT INTO grab_range (_id, name, grab_range)
+  INSERT INTO grab_range (name, grab_range)
   VALUES
 `;
 
 stats.parseGrab.then((results) => {
   for (let i = 0; i < results.length; i++) {
-    insertGrabTableScript += `(${i}, '${results[0][i]}', ${results[1][i]}),`;
+    insertGrabTableScript += `('${results[0][i]}', ${results[1][i]}),`;
   }
 
   insertGrabTableScript = insertGrabTableScript.slice(0, -1); // remove trailing comma
