@@ -1,5 +1,5 @@
 //import database
-const db = require("/server.js");
+const db = require('/server.js');
 
 //create controller object
 const surveyController = {};
@@ -30,8 +30,7 @@ surveyController.getSurvey = async (req, res, next) => {
 
     //pass queryString into db query
     const result = await db.query(queryString);
-    res.locals.survey = resu;
-    lt;
+    res.locals.survey = result;
 
     return next();
   } catch (err) {
@@ -44,14 +43,14 @@ surveyController.getSurvey = async (req, res, next) => {
 };
 
 //add to existing survey
-surveryController.surveyInput = async (req, res, next) => {
+surveyController.surveyInput = async (req, res, next) => {
   try {
     //get variables off req.body
-    const {name, cuteness} = req.body;
+    const { name, cuteness } = req.body;
     const queryString = `
         INSERT INTO survey (name, cuteness)
         VALUES ()
-        `; 
+        `;
 
     next();
   } catch (error) {
