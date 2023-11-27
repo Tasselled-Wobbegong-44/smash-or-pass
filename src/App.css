@@ -1,20 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* 
 body {
   height: 100vh;
   background-size: cover;
@@ -22,43 +8,16 @@ body {
   background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0.1);
   background-image: url(https://ssb.wiki.gallery/images/thumb/3/3b/SSBU-Temple.png/1200px-SSBU-Temple.png);
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+  overflow: hidden;
+} */
 
 .charCard {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-end;
   justify-content: center;
-  max-width: display;
-  margin-bottom: 10px;
-  margin-top: 6%;
-  padding-left: 300px;
-  padding-right: 300px;
+  min-width: 500px;
+  max-width: 1000px;
 }
 
 .CharacterImage {
@@ -66,22 +25,25 @@ body {
 }
 
 .intro {
-  text-align: center;
-  border: none;
-  position: relative;
-  top: 60px;
-  font-size: 1.5em;
-  font-family: Bangers;
-}
-
-/* Slider design */
-
-.slider-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8%;
+  text-align: center;
+  margin: 2%;
+  font-size: 1.5em;
+  font-family: Bangers, "Arial", sans-serif;
+  text-shadow: 1px 1px 3px rgb(252, 252, 252);
+}
+
+/* Slider design */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .slider {
@@ -91,16 +53,22 @@ body {
   align-items: center;
   font-size: 1em;
   font-weight: bolder;
+  /* -webkit-text-stroke: 0.5px black; */
   padding: 20px;
 }
 
 .sliderbox {
-  background-color: rgba(255, 255, 255, 0.34);
+  background-color: rgba(255, 255, 255, 0.738);
+  font-weight: 600;
+  font-size: 20px;
   position: relative;
   align-items: center;
   align-content: center;
   justify-content: center;
   max-width: 350px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 /* Drawer design */
@@ -137,4 +105,35 @@ body {
   /* -webkit-text-stroke: 0.5px black; */
   /* background-color: rgb(164, 205, 240); */
   /* backdrop-filter: 10px; */
+}
+
+body {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  animation: changeBackground 20s infinite linear; /* Adjust the duration as needed */
+}
+
+@keyframes changeBackground {
+  0%,
+  20% {
+    background-image: url("https://ssb.wiki.gallery/images/thumb/7/73/SSBU-Pok%C3%A9mon_Stadium_2.png/1600px-SSBU-Pok%C3%A9mon_Stadium_2.png");
+  }
+  25%,
+  45% {
+    background-image: url("https://www.ssbwiki.com/images/8/86/SSBU-Battlefield.png");
+  }
+  50%,
+  70% {
+    background-image: url("https://ssb.wiki.gallery/images/9/99/SSBU-Bridge_of_Eldin.png");
+  }
+  75%,
+  95% {
+    background-image: url("https://ssb.wiki.gallery/images/7/7b/SSBU-Yoshi%27s_Island_%28SSBB%29.png");
+  }
+  100% {
+    background-image: url("https://ssb.wiki.gallery/images/thumb/7/73/SSBU-Pok%C3%A9mon_Stadium_2.png/1600px-SSBU-Pok%C3%A9mon_Stadium_2.png");
+  }
 }
