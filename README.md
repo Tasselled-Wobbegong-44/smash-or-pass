@@ -1,4 +1,4 @@
-# SMASH OR PASS
+# S.M.A.S.H.
 
 The app designed to help you pick which character to play in Smash.
 
